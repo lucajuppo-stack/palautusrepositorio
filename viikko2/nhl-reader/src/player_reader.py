@@ -2,12 +2,12 @@ import requests
 from player import Player
 
 
-class PlayerReader:
+class PlayerReader:  # pylint: disable=too-few-public-methods
     def __init__(self, url):
         self._url = url
 
     def get_players(self):
-        response = requests.get(self._url)
+        response = requests.get(self._url, timeout=10)
         data = response.json()
 
         if not response.ok or not isinstance(data, list):

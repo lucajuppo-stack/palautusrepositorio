@@ -5,22 +5,13 @@ from player_reader import PlayerReader
 from player_stats import PlayerStats
 
 
-def main():
-    console = Console()
-
-    season = input("Kausi (esim. 2024-25): ")
-    nationality = input("Maan koodi (esim. FIN): ").upper()
-
+def fetch_top_scorers(season, nationality):
     url = f"https://studies.cs.helsinki.fi/nhlstats/{season}/players"
-    reader = PlayerReader(url)
-    stats = PlayerStats(reader)
+    stats = PlayerStats(PlayerReader(url))
+    return stats.top_scorers_by_nationality(nationality)
 
-    try:
-        players = stats.top_scorers_by_nationality(nationality)
-    except ValueError as error:
-        console.print(f"[bold red]Virhe:[/bold red] {error}")
-        return
 
+def build_table(season, nationality, players):
     table = Table(title=f"{nationality} {season}")
     table.add_column("Nimi")
     table.add_column("Joukkue")
@@ -37,7 +28,22 @@ def main():
             str(player.points),
         )
 
-    console.print(table)
+    return table
+
+
+def main():
+    console = Console()
+
+    season = input("Kausi (esim. 2024-25): ")
+    nationality = input("Maan koodi (esim. FIN): ").upper()
+
+    try:
+        players = fetch_top_scorers(season, nationality)
+    except ValueError as error:
+        console.print(f"[bold red]Virhe:[/bold red] {error}")
+        return
+
+    console.print(build_table(season, nationality, players))
 
 
 if __name__ == "__main__":
