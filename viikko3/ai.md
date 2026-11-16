@@ -70,7 +70,5 @@ uudelleen: 15/15 läpi.
 
 ## Mitä uutta opit?
 
-(Täytä tähän oma pohdintasi: mitä hyväksymistestien kirjoittaminen
-testilähtöisesti opetti, mitä huomasit agentin vahvuuksista ja heikkouksista,
-ja miten varmistut siitä, että agentin kirjoittamat testit eivät ole
-"itsestäänselvästi läpimeneviä".)
+Hermes Agent on todella vahva työkalu. Sitä enemmän sitä käyttää sitä parempi se on. 
+Subagents, revisionagnets,  /loop
